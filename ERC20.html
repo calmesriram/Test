@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+
+<head>
+<CENTER>ERC20</CENTER>
+<title> ERC20</title>
+</head>
+</br></br></br></br>
+<body style = "background:steelblue">
+
+
+<center><input type ="text" placeholder ="Amount" id="amt"></center></br</br>
+<center><input type ="button" value = "mint" onclick = "mint()" ></center></br</br>
+
+<center></br></br><input type ="text" placeholder ="To" id="trans"></center></br</br>
+<center><input type ="text" placeholder ="tovalue" id="tovalue"></center></br</br>
+
+<center></br></br><input type = "button" value ="Amount" onclick="Token()"></center>
+
+<center><input type ="text" placeholder ="balance" id="balance"></center></br</br>
+<center></br></br><input type= "button" value = "Balance"  onclick="bal()"></center>
+
+
+ </body>
+<script>
+
+        web3.eth.defaultAccount = web3.eth.accounts[0];
+	var con = web3.eth.contract([
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "totalsupply",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [
+			{
+				"name": "who",
+				"type": "address"
+			}
+		],
+		"name": "bal",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "amount",
+				"type": "uint256"
+			}
+		],
+		"name": "mint",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "to",
+				"type": "address"
+			},
+			{
+				"name": "value",
+				"type": "uint256"
+			}
+		],
+		"name": "transfer",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": true,
+		"stateMutability": "payable",
+		"type": "function"
+	}
+]);
+
+  var  mycon = con.at('0xb55002852df955f9e34a0f59748fe6ef6df8cb00');
+  
+			if(web3.isConnected())
+				{
+  				 console.log("ok");
+				}			
+				else
+				{
+				console.log("no")
+				}
+function Token()
+{
+
+
+
+
+   var  tr = document.getElementById('trans');
+   var  toval = document.getElementById('tovalue');
+
+        return mycon.transfer(tr.value,toval.value,function(error,result){
+	if(!error)
+		{
+		 alert(result);
+                    
+		}
+		else
+		{
+			alert(error);
+		}
+	});
+}
+
+function mint()
+{
+ 
+   var  amt = document.getElementById('amt');
+  return mycon.mint(amt.value,function(error,result){
+	if(!error)
+		{
+		 alert(result);
+                    
+		}
+		else
+		{
+			alert(error);
+		}
+	});
+}
+function bal()
+{
+ 
+   var  mybal = document.getElementById('balance');
+  return mycon.bal(mybal.value,function(error,result){
+	if(!error)
+		{
+		 alert(result);
+                    
+		}
+		else
+		{
+			alert(error);
+		}
+	});
+}
+
+
+
+
+   
+
+
+
+</script>
+</html>
