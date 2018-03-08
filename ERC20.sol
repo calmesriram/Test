@@ -31,9 +31,11 @@ contract ERC20
      return(map[msg.sender])  ;
        
  }
- 
+ function bal()public  constant returns(uint256)
+ {
+     return(map[msg.sender]);
+ }
+   
  
   
-}
-
 
